@@ -1,0 +1,28 @@
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        # if numRows just return input
+        if numRows == 1:
+            return s
+        # make a list to store strings
+        array = [""] * numRows
+        # use i to store row number
+        i = 0
+        # set variable to record row add or minus
+        DESC = False
+        # use DECS to store letters into array respectively
+        for letter in s:
+            if DESC is False:
+                array[i] += letter
+                i+=1
+                if i == numRows:
+                    DESC = True
+                    i = numRows - 1
+            elif DESC:
+                i -= 1
+                array[i] += letter
+                if i == 0:
+                    DESC = False
+                    i += 1                    
+        # combine strings
+        return "".join(array)
+                
