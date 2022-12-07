@@ -1,0 +1,19 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recur_sum(self, root, low, high):
+        if (root.val <= high) & (root.val >= low):
+            self.S += root.val
+        if root.left:
+            self.recur_sum(root.left, low, high)
+        if root.right:
+            self.recur_sum(root.right, low, high)
+
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        self.S = 0
+        self.recur_sum(root, low, high)
+        return self.S
