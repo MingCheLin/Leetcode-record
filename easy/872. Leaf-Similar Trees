@@ -14,3 +14,24 @@ class Solution:
                 return findLeafSeq(root.left) + findLeafSeq(root.right)
         
         return findLeafSeq(root1) == findLeafSeq(root2)
+
+
+###   OR   ###
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def findLeafSeq(root):
+            s = []
+            if root: 
+                stack = []
+                stack.append(root)
+            while stack:
+                root = stack.pop()
+                if root.right:
+                    stack.append(root.right)
+                if root.left:
+                    stack.append(root.left)
+                if not (root.right or root.left):
+                    s.append(root.val)
+            return s
+
+        return findLeafSeq(root2) == findLeafSeq(root1)
