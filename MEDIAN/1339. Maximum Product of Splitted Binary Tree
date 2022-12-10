@@ -1,0 +1,34 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxProduct(self, root: Optional[TreeNode]) -> int:
+        def DFS(root):
+            if ((self.S-root.val)*root.val) > self.pro:
+                self.pro = ((self.S-root.val)*root.val)
+            if root.left:
+                DFS(root.left)
+            if root.right:
+                DFS(root.right)
+
+        def CUMSUM(root):
+            if root:
+                temp = TreeNode()
+                L = CUMSUM(root.left)
+                R = CUMSUM(root.right)
+                Lval = L.val if L else 0
+                Rval = R.val if R else 0
+                temp.val = Lval+Rval+root.val
+                temp.left = L
+                temp.right = R
+                return temp
+            return None
+
+        self.pro = 0
+        cumtree = CUMSUM(root)
+        self.S = cumtree.val
+        DFS(cumtree)
+        return self.pro % (10**9 + 7)
