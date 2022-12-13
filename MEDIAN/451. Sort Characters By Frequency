@@ -1,0 +1,16 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        dict = {}
+        for w in s:
+            if w in dict:
+                dict[w] += 1
+            else:
+                dict[w] = 1
+        array = [[] for _ in range(len(s)+1)]
+        for w in dict:
+            array[dict[w]].append(w)
+        ans = []
+        for freq in range(len(s), -1, -1):
+            for w in array[freq]:
+                ans.append(w*freq)
+        return "".join(ans)
