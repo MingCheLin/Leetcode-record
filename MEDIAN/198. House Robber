@@ -1,0 +1,25 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        array = [0]*len(nums)
+        if len(nums) == 1:
+            return nums[0]
+        elif len(nums) == 2:
+            return max(nums)
+        elif len(nums) == 3:
+            return max(nums[0]+nums[2], nums[1])
+        array[0] = nums[0]
+        array[1] = nums[1]    
+        array[2] = nums[2] + nums[0]
+        for i in range(3,len(nums)):
+            array[i] = nums[i] + max(array[i-2], array[i-3])
+        return max(array[-1], array[-2])
+        
+### or ###
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        A = B = 0
+        for num in nums:
+            temp = A
+            A = B
+            B = max(temp + num, A)
+        return B
