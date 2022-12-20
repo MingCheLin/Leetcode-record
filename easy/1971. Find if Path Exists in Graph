@@ -1,0 +1,29 @@
+## Made set data structure to do it
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        self.array = [None]*n
+
+        def find_root(x):
+            if (x is None):
+                return None
+            if self.array[x] == -1:
+                return x 
+            return find_root(self.array[x])
+
+        for e in edges:
+            r0 = find_root(e[0])
+            r1 = find_root(e[1])
+            if (self.array[e[0]] is None) and (self.array[e[1]] is None):
+                self.array[e[0]] = -1
+                self.array[e[1]] = e[0]
+            elif (self.array[e[0]] is None):
+                self.array[e[0]] = r1
+            elif (self.array[e[1]] is None):
+                self.array[e[1]] = r0
+            elif r0 != r1:
+                if r0 == e[0]:
+                    self.array[e[1]] = e[0]
+                else:
+                    self.array[find_root(e[0])] = find_root(e[1])
+                
+        return find_root(source) == find_root(destination)
