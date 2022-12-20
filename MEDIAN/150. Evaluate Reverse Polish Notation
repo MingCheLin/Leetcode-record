@@ -1,0 +1,18 @@
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        temp = []
+        for t in tokens:
+            if t in "+-*/":
+                b = int(temp.pop())
+                a = int(temp.pop())
+                if t =='+':
+                    temp.append(a+b)
+                elif t == '-':
+                    temp.append(a-b)
+                elif t == '*':
+                    temp.append(a*b)
+                else:
+                    temp.append(int(a/b))
+            else:
+                temp.append(int(t))
+        return temp.pop()
