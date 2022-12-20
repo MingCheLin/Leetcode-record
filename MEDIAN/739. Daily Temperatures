@@ -1,0 +1,10 @@
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        array = [0]*len(temperatures)
+        temp = []
+        for i, t in enumerate(temperatures):
+            while temp and (temperatures[temp[-1]] < t):
+                day = temp.pop()
+                array[day] = i - day
+            temp.append(i)
+        return array
