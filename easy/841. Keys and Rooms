@@ -1,0 +1,16 @@
+## I just use DFS and array to do it but this method is unefficient for space complexity
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        self.array = [0]*len(rooms)
+        self.seen = 0
+        def DFS(room):
+            if not self.array[room]:
+                self.array[room] = 1
+                self.seen += 1
+                for key in rooms[room]:
+                    DFS(key)
+        DFS(0)
+        return self.seen == len(rooms)
+        
+        
+## Others use set to enhance it
