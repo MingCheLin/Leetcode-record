@@ -1,0 +1,11 @@
+class Solution:
+    def numTilings(self, n: int) -> int:
+        array = []
+        array.append(1)
+        array.append(2)
+        array.append(5)
+        if n < 3:
+            return array[n-1]
+        for i in range(3, n):
+            array.append(2*array[i-1]+array[i-3])
+        return array[-1]%(10**9+7)
