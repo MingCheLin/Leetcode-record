@@ -19,7 +19,7 @@ class Solution:
                     for i in table[temp]:
                         array[i] = x
                         table[x].append(i)
-                    table[temp] = None
+                    del table[temp] 
 
             elif array[pair[1]] == 0:
                 array[pair[0]] = pair[1]
