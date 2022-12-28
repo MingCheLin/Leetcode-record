@@ -1,0 +1,34 @@
+class Solution:
+    def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
+        array = [0] * (n+1)
+        table = dict()
+        dislikes.sort()
+        for pair in dislikes:
+            if array[pair[0]] != 0:
+                if array[pair[1]] == 0:
+                    x = array[array[pair[0]]]
+                    array[pair[1]] = x
+                    table[x].append(pair[1])
+                elif array[pair[1]] == array[pair[0]]:
+                    return False
+                elif array[array[pair[0]]] == array[pair[1]]:
+                    continue
+                else:
+                    x = array[array[pair[0]]]
+                    temp = array[pair[1]]
+                    for i in table[temp]:
+                        array[i] = x
+                        table[x].append(i)
+                    table[temp] = None
+
+            elif array[pair[1]] == 0:
+                array[pair[0]] = pair[1]
+                array[pair[1]] = pair[0]
+                table[pair[0]] = [pair[1]]
+                table[pair[1]] = [pair[0]]
+            else:
+                x = array[array[pair[1]]]
+                array[pair[0]] = x
+                table[x].append(pair[0])
+
+        return True
