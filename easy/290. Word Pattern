@@ -1,0 +1,16 @@
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        index = dict()
+        s = s.split()
+        if len(s) != len(pattern):
+            return False
+        for i in range(len(s)):
+            if (pattern[i] in index):
+                if s[i] != index[pattern[i]]:
+                    return False
+            else:
+                if s[i] not in index.values():
+                    index[pattern[i]] = s[i]
+                else:
+                    return False
+        return True
