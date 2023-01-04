@@ -1,0 +1,15 @@
+class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+        table = dict()
+        for n in tasks:
+            if n in table:
+                table[n] += 1
+            else:
+                table[n] = 1
+        ans = 0
+        for n in table.values():
+            if n == 1:
+                return -1
+            else:
+                ans += (-(-n // 3))
+        return ans
