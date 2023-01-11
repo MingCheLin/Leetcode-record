@@ -1,0 +1,25 @@
+class Solution:
+    def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
+        hasApple[0] = True
+        hash_table = [-1]*n
+        i = 0
+        while i < len(edges):
+            e = edges[i]
+            if hash_table[e[1]] == -1:
+                hash_table[e[1]] = e[0]
+            elif hash_table[e[0]] == -1:
+                hash_table[e[0]] = e[1]
+            else:
+                edges.append(e)
+            i += 1
+  
+        for i, apple in enumerate(hasApple):
+            if apple:
+                n = i
+                while n != 0:
+                    n = hash_table[n]
+                    if hasApple[n] == True:
+                        break
+                    else:
+                        hasApple[n] = True
+        return (sum(hasApple)-1) * 2
