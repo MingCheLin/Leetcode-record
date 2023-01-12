@@ -8,7 +8,7 @@ class Solution:
                     cnt += dfs(child, cur)
             ans[cur] = cnt[cur_label]
             return cnt
-        g = defaultdict(list)
+        g = [[] for _ in range(n)]
         for a, b in edges:
             g[a] += [b]
             g[b] += [a]
