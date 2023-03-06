@@ -1,0 +1,8 @@
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        if arr[0] > k:
+            return k
+        for i, n in enumerate(arr):
+            if n-i-1 >= k:
+                return k + i
+        return (k + len(arr))
