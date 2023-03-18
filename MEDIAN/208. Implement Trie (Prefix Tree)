@@ -1,0 +1,29 @@
+class Trie:
+    def __init__(self):
+        self.First = {}
+        
+    def insert(self, word: str) -> None:
+        temp = self.First
+        for s in word:
+            if s not in temp:
+                temp[s] = {}
+            temp = temp[s]
+        temp['end'] = True
+
+    def search(self, word: str) -> bool:
+        temp = self.First
+        for s in word:
+            if s not in temp:
+                return False
+            temp = temp[s]
+        if 'end' in temp:
+            return True
+        return False
+
+    def startsWith(self, prefix: str) -> bool:
+        temp = self.First
+        for s in prefix:
+            if s not in temp:
+                return False
+            temp = temp[s]
+        return True
