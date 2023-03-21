@@ -1,0 +1,31 @@
+class WordDictionary:
+
+    def __init__(self):
+        self.index = {}
+
+    def addWord(self, word: str) -> None:
+        temp = self.index
+        for w in word:
+            if w not in temp:
+                temp[w] = {}
+            temp = temp[w]
+        temp['end'] = True
+            
+    def search(self, word: str) -> bool:
+        word += '#'
+        return self.search_dot(word, self.index)
+                
+    def search_dot(self, word, temp):
+        w = word[0]
+        if w == '#':
+            return 'end' in temp
+        elif w == '.':
+            for cur in temp:
+                if cur == 'end':
+                    continue
+                elif self.search_dot(word[1:], temp[cur]):
+                    return True
+            return False
+        elif w in temp:
+            return self.search_dot(word[1:], temp[w])
+        return False
