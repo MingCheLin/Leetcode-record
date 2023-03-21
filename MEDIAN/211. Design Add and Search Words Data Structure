@@ -1,3 +1,4 @@
+########### 我的舊解
 class WordDictionary:
 
     def __init__(self):
@@ -28,4 +29,27 @@ class WordDictionary:
             return False
         elif w in temp:
             return self.search_dot(word[1:], temp[w])
+        return False
+
+########## 新解
+from collections import defaultdict
+
+class WordDictionary:
+
+    def __init__(self):
+        self.index = defaultdict(set)
+
+    def addWord(self, word: str) -> None:
+        self.index[len(word)].add(word)
+
+    def search(self, word: str) -> bool:
+        temp = self.index[len(word)]
+        if '.' not in word:
+            return word in temp
+        for v in temp:
+            for i, ch in enumerate(word):
+                if ch != v[i] and ch != '.':
+                    break
+            else:
+                return True
         return False
