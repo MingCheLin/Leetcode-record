@@ -1,0 +1,18 @@
+class Solution:
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+        index = defaultdict(dict)
+        for a, b, dis in roads:
+            index[a][b] = dis
+            index[b][a] = dis
+        
+        dq = [1]
+        res = inf
+        visit = set()
+        while dq:
+            temp = dq.pop()
+            for city, dis in index[temp].items():
+                if city not in visit:
+                    dq.append(city)
+                    visit.add(city)
+                res = min(dis, res)
+        return res
