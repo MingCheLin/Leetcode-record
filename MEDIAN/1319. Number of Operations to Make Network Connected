@@ -1,0 +1,42 @@
+##########最佳解
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        if len(connections) < n - 1:
+            return -1
+
+        roots = [i for i in range(n)]
+        
+        def find(roots, i):
+            while roots[i] is not i:
+                roots[i] = roots[roots[i]]
+                i = roots[i]
+            return i
+        
+        count = n
+        for x, y in connections:
+            root1 = find(roots, x)
+            root2 = find(roots, y)
+            if root1 is not root2:
+                roots[root1] = root2
+                count -= 1
+
+        return count - 1
+
+########我的解
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        if len(connections) < n-1:
+            return -1
+        index = [set() for i in range(n)]
+        seen = [0]*n
+        
+        for a, b in connections:
+            index[a].add(b)
+            index[b].add(a)
+        def dfs(i):
+            if seen[i]:return 0
+            seen[i] = 1
+            for j in index[i]:
+                dfs(j)
+            return 1
+        return sum(dfs(i) for i in range(n)) - 1
