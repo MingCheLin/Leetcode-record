@@ -25,9 +25,7 @@ class Solution:
 ### 最佳解
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        edges = []
-        for _ in range(n):
-            edges.append([])
+        edges = [list() for _ in range(n)]
         for edge in connections:
             edges[edge[0]].append(edge)
             edges[edge[1]].append(edge)
@@ -48,3 +46,4 @@ class Solution:
                         nodes.append(x)
                         visited[x] = True
         return ret
+
