@@ -1,0 +1,50 @@
+### 我的舊的
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        forward = [set() for _ in range(n)]
+        backward = [set() for _ in range(n)]
+        for a, b in connections:
+            forward[a].add(b)
+            backward[b].add(a)
+        self.total = 0
+        def dfs(i, parent):
+            self.total += len(forward[i])
+            if parent in forward[i]:
+                self.total -= 1
+            for j in backward[i]:
+                if j == parent:
+                    continue
+                dfs(j, i)
+            for j in forward[i]:
+                if j == parent:
+                    continue
+                dfs(j, i)
+        dfs(0, -1)
+        return self.total
+        
+### 最佳解
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        edges = []
+        for _ in range(n):
+            edges.append([])
+        for edge in connections:
+            edges[edge[0]].append(edge)
+            edges[edge[1]].append(edge)
+        ret = 0
+        visited = [False] * n
+        nodes = [0]
+        visited[0] = True
+        while len(nodes) > 0:
+            node = nodes.pop()
+            for x, y in edges[node]:
+                if node == x:
+                    if not visited[y]:
+                        ret += 1
+                        nodes.append(y)
+                        visited[y] = True
+                else:
+                    if not visited[x]:
+                        nodes.append(x)
+                        visited[x] = True
+        return ret
