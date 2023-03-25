@@ -1,0 +1,29 @@
+class Solution:
+    def countPairs(self, n: int, edges: List[List[int]]) -> int:
+        visited = [False] * n
+        index = [list() for _ in range(n)]
+        for a, b in edges:
+            index[a].append(b)
+            index[b].append(a)
+        
+        num = []
+        for i, t in enumerate(visited):
+            if not t:
+                total = 1
+                visited[i] = True
+                dq = deque([i])
+                while dq:
+                    cur = dq.pop()
+                    for child in index[cur]:
+                        if not visited[child]:
+                            dq.append(child)
+                            visited[child] = True
+                            total += 1
+                num.append(total)
+        res = 0
+        y = sum(num)
+        while num:
+            x = num.pop()
+            y -= x
+            res += x * y
+        return res
