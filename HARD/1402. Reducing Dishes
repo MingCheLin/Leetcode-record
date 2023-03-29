@@ -1,0 +1,8 @@
+class Solution:
+    def maxSatisfaction(self, satisfaction: List[int]) -> int:
+        satisfaction.sort()
+        res = temp = 0
+        while satisfaction and temp+satisfaction[-1] >= 0:
+            temp += satisfaction.pop()
+            res += temp
+        return res
