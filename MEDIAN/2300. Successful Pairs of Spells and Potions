@@ -1,0 +1,17 @@
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        res = []
+        for n in spells:
+            total = 0
+            target = -(-success // n)
+            l, r = 0, len(potions) - 1
+            while r >= l:
+                m = l + (r-l) // 2
+                if potions[m] >= target:
+                    r = m-1
+                else:
+                    l = m+1
+            res.append(len(potions) - l)
+        return res
+### or use bisect.bisect_left #########
