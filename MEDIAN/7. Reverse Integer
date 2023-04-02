@@ -1,0 +1,20 @@
+### use mathematic
+class Solution:
+    def reverse(self, x: int) -> int:
+        if x < 0:
+            x, a = -x, -1
+        else:
+            a = 1
+        res = 0
+        while x > 0:
+            res = res*10 + x % 10
+            x = x // 10
+        res *= a
+        return res if -(2**31)-1 < res < 2**31 else 0
+
+### use str to 
+class Solution:
+    def reverse(self, x: int) -> int:
+        a = 1 if x >= 0 else -1
+        res = a * int(str(abs(x))[::-1])
+        return res if -2**31<=res<=2**31-1 else 0
