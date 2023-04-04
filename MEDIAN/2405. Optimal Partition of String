@@ -1,0 +1,11 @@
+class Solution:
+    def partitionString(self, s: str) -> int:
+        res = 1
+        index = ""
+        for w in s:
+            if w not in index:
+                index += w
+            else:
+                index = w
+                res += 1
+        return res
