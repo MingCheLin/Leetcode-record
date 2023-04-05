@@ -15,11 +15,13 @@ class Solution:
         return res
         
         
-##### 別人的
-avg = 0
+##### 別人的修改一下不用ceil
+class Solution:
+    def minimizeArrayValue(self, nums: List[int]) -> int:
+        avg = 0
         total = 0 
         for i in range(len(nums)):
             total+=nums[i]
             if total/(i+1) > avg:
-                avg = ceil(total/(i+1))
+                avg = -(-total//(i+1))
         return avg
