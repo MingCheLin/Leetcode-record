@@ -1,0 +1,17 @@
+class Solution:
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        def fill(i, j):
+            if i == -1 or i == n or j == -1 or j == m:
+                return 0
+            if grid[i][j] == 0:
+                grid[i][j] = 2
+                return fill(i-1, j)* fill(i+1, j)* fill(i, j-1)* fill(i, j+1)
+            return 1
+        n = len(grid)
+        m = len(grid[0])
+        res = 0
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 0:
+                    res += fill(i, j)
+        return res
