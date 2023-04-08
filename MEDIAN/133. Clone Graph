@@ -1,0 +1,25 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node: return node
+        visited = dict()
+        origin = deque([node])
+        while origin:
+            o = origin.pop()
+            if o.val not in visited:
+                temp_node = Node(o.val, None)
+                visited[o.val] = temp_node
+                for n in o.neighbors: 
+                    if n.val not in visited:
+                        origin.append(n)
+                    else:
+                        temp_node.neighbors.append(visited[n.val])
+                        visited[n.val].neighbors.append(temp_node)
+        return visited[1]
