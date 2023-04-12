@@ -1,0 +1,40 @@
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        res = list()
+        res.append(path[0])
+        temp = str()
+        if path[-1] != '/':
+            path += '/'
+        for w in path[1:]:
+            if not temp and w =='/':
+                continue
+            temp += w
+            if w == '/':
+                res.append(temp)
+                temp = str()
+
+        res2 = list()
+        for w in res:
+            if w == "./":
+                continue
+            elif w == "../":
+                if len(res2) > 1:
+                    res2.pop()
+            else:
+                res2.append(w)
+        if len(res2) > 1 and res2[-1][-1] == '/':
+            res2[-1] = res2[-1][:-1]
+        return "".join(res2)
+        
+        
+### 
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        path = path.split('/')
+        stack = []
+        for d in path:
+            if d == '': continue
+            elif d == '..':
+                if stack: stack.pop()
+            elif d != '.': stack.append(d)
+        return '/' + '/'.join(stack)
