@@ -1,0 +1,12 @@
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        target = max(candies)
+        res = list()
+        for c in candies:
+            res.append(extraCandies + c >= target)
+        return res
+        
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        target = max(candies)
+        return [extraCandies + c >= target for c in candies]
