@@ -1,0 +1,22 @@
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        q = list([(root, 0, '')])
+        while q:
+            node, depth, dir = q.pop()
+            res = max(res, depth)
+            if node.left: q.append((node.left, depth + 1 if dir == 'r' else 1, 'l'))
+            if node.right: q.append((node.right, depth + 1 if dir == 'l' else 1, 'r'))
+        return res
+        
+###
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        
+        def dfs(node):
+            if not node:
+                return [0, 0, 0]
+            left = dfs(node.left)
+            right = dfs(node.right)
+            return [left[1]+1, right[0]+1, max(right[0]+1, left[1]+1, left[2], right[2])]
+        return dfs(root)[2]-1
