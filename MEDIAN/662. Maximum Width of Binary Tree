@@ -1,0 +1,42 @@
+### 我的第一次，消耗的記憶體較多但是算是最佳解
+class Solution:
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        res = temp_width = cur_depth = l = width = 1
+        dq = deque([(root, 1)])
+        root.val = 1
+        while dq:
+            cur, depth = dq.popleft()
+            idx = cur.val
+            if depth != cur_depth:
+                cur_depth = depth
+                res = max(res, temp_width)
+                l = cur.val
+            else:
+                temp_width = cur.val - l + 1
+            if cur.left:
+                cur.left.val = 2*idx 
+                dq.append((cur.left, depth+1))
+            if cur.right:
+                cur.right.val = 2*idx + 1
+                dq.append((cur.right, depth+1))
+        res = max(res, temp_width)
+        return res
+
+
+### 參考最好的，消耗記憶體較少，重點是利用for loop來確認同一層跑完再跑下一層以方便計算寬度
+class Solution:
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        res = 1
+        dq = deque([(root, 1)])
+        root.val = 1
+        while dq:
+            dq_len = len(dq)
+            _, l = dq[0]
+            for _ in range(dq_len):
+                cur, position = dq.popleft()
+                if cur.left:
+                    dq.append((cur.left, position*2))
+                if cur.right:
+                    dq.append((cur.right, position*2+1))
+            res = max(res, position-l+1)
+        return res
