@@ -1,0 +1,19 @@
+class SmallestInfiniteSet:
+
+    def __init__(self):
+        self.h = []
+        self.qindex = dict() 
+        self.num = 1
+        
+    def popSmallest(self) -> int:
+        if self.h:
+            x = heappop(self.h)
+            self.qindex[x] = 0
+            return x
+        self.num += 1
+        return self.num-1
+
+    def addBack(self, num: int) -> None:
+        if num < self.num and self.qindex.get(num, 0) == 0:
+            self.qindex[num] = 1
+            heappush(self.h, num)
