@@ -1,0 +1,35 @@
+### 空間複雜度較差，應該是因為find function用太多記憶體
+class Solution:
+    def numSimilarGroups(self, strs: List[str]) -> int:
+        strs_len = len(strs)
+        word_len = len(strs[0])
+        self.UF = [i for i in range(strs_len)]
+        self.UF_size = len(strs)
+
+        def find(x):
+            if self.UF[x] != x:
+                self.UF[x] = find(self.UF[x])
+            return self.UF[x]
+        
+        def join(i, j):
+            i_root = find(i)
+            j_root = find(j)
+            if i_root != j_root:
+                self.UF_size -= 1
+                self.UF[j_root] = i_root
+        
+        def similar(s1, s2):
+            dif = 0
+            for i in range(word_len):
+                if s1[i] != s2[i]:
+                    dif += 1
+                    if dif > 2:
+                        return False
+            return True
+
+        for i in range(strs_len):
+            for j in range(i+1, strs_len):
+                if similar(strs[i], strs[j]):
+                    join(i, j)
+
+        return self.UF_size
