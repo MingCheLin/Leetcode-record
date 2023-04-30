@@ -1,0 +1,46 @@
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -> int:
+        edges = sorted(edges, reverse=True)
+        UF = [i for i in range(n+1)]
+        self.res = 0
+        pos = 0
+        self.e = 0
+        edges_num = len(edges)
+        def find(x):
+            if UF[x] != x:
+                UF[x] = find(UF[x])
+            return UF[x]
+        def union(a, b):
+            a, b = find(a), find(b)
+            if a == b:
+                self.res += 1
+            else:
+                UF[a] = b
+                self.e += 1
+                
+        while pos < edges_num:
+            t, a, b = edges[pos]
+            if t != 3:
+                break
+            pos += 1
+            union(a, b)
+
+        UF3 = UF[:]
+        e3 = self.e
+        while pos < edges_num:
+            t, a, b = edges[pos]
+            if t != 2:
+                if self.e != n-1:
+                    return -1
+                break
+            pos += 1
+            union(a, b)
+        
+        UF = UF3    
+        self.e = e3
+        while pos < edges_num:
+            t, a, b = edges[pos]
+            pos += 1
+            union(a, b)
+        
+        return self.res if self.e == n-1 else -1
