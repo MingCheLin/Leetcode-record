@@ -1,0 +1,11 @@
+class Solution:
+    def average(self, salary: List[int]) -> float:
+        smax = smin = salary[0]
+        total = 0
+        for s in salary:
+            if s > smax:
+                smax = s
+            elif s < smin:
+                smin = s
+            total += s
+        return (total - smax - smin) / (len(salary)-2)
