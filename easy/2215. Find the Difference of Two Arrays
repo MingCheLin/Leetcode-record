@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> v1, v2;
+        set<int> s1(begin(nums1), end(nums1)), s2(begin(nums2), end(nums2));
+        set_difference(begin(s1), end(s1), begin(s2), end(s2), back_inserter(v1));
+        set_difference(begin(s2), end(s2), begin(s1), end(s1), back_inserter(v2));
+        return {v1, v2};
+    }
+};
+
+
+
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        index = set(nums1)
+        res = [set(index), set()]
+        for n in nums2:
+            if n in index:
+                try:
+                    res[0].remove(n)
+                except:
+                    pass
+            else:
+                res[1].add(n)
+        return res
