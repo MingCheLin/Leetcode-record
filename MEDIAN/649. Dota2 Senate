@@ -1,0 +1,34 @@
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+        senate = deque(senate)
+        while True:
+            temp = senate[0]
+            for i in range(len(senate)):
+                if senate[i] != temp:
+                    del senate[i]
+                    break
+            else:
+                return "Dire" if temp == 'D' else "Radiant"
+            senate.popleft()
+            senate.append(temp)
+            
+            
+### 最佳解
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+        rQ = deque()
+        dQ = deque()
+        
+        for i,c in enumerate(senate):
+            if c == "R":
+                rQ.append(i)
+            else:
+                dQ.append(i)
+        while dQ and rQ:
+            d,r = dQ.popleft(), rQ.popleft()
+            
+            if d < r:
+                dQ.append(d+len(senate))
+            else:
+                rQ.append(r+len(senate))
+        return "Radiant" if rQ else "Dire"
